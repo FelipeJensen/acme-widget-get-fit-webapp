@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { routes } from '../app-routing.module';
 
 @Component({
   selector: 'app-home',
