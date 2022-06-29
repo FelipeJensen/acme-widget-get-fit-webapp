@@ -1,0 +1,49 @@
+<h1>Search</h1>
+
+<mat-accordion>
+    <mat-expansion-panel #expansionPanel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Filters
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <p>Search for someone or an activity</p>
+
+        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+            <div class="form-field-container">
+                <mat-form-field appearance="fill" class="input-container">
+                    <mat-label>Name</mat-label>
+                    <input matInput name="name" formControlName="name">
+                </mat-form-field>
+            </div>
+
+            <div class="form-field-container">
+                <mat-form-field appearance="fill" class="input-container">
+                    <mat-label>Activity</mat-label>
+                    <mat-select formControlName="activityId">
+                        <mat-option *ngFor="let activity of activities" [value]="activity.id">
+                            {{activity.value}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="form-field-container">
+                <mat-form-field appearance="fill" class="input-container">
+                    <mat-label>Start Date</mat-label>
+                    <mat-select formControlName="activityDateId">
+                        <mat-option *ngFor="let activityDate of activityDates" [value]="activityDate.id"
+                            [value]="activityDate.id">
+                            {{activityDate.description()}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="submit-container">
+                <button mat-raised-button type="button" (click)="clear()">Clear</button>
+                <button mat-raised-button color="accent" type="submit">Search</button>
+            </div>
+        </form>
+    </mat-expansion-panel>
+</mat-accordion>

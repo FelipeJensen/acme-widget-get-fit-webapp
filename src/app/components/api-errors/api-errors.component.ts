@@ -15,7 +15,6 @@ interface ApiError {
 })
 export class ApiErrorsComponent implements OnInit {
   @Input() set apiError(value: ApiError) {
-    console.log(value);
     if (value) {
       this.apiErrors.splice(0, this.apiErrors.length);
       Object.keys(value.errors).map((k) => {

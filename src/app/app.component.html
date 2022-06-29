@@ -1,7 +1,13 @@
 <mat-toolbar color="primary">
-  <span>Get Fit</span>
+  <mat-icon class="m-r-05em" *ngIf="_backArrowService.visible">
+    <a class="clear-link" [routerLink]="_backArrowService.routerLink">
+      arrow_back
+    </a>
+  </mat-icon>
+
+  <a routerLink="/" class="clear-link">Get Fit</a>
 </mat-toolbar>
 
-<div class="margin">
+<div class="app-container">
   <router-outlet></router-outlet>
 </div>

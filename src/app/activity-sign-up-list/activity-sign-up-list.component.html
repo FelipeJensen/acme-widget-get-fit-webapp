@@ -1,0 +1,19 @@
+<div class="m-b-1em">
+    <app-activity-sign-up-list-search (searchResultsEvent)="receiveSearchResults($event)">
+    </app-activity-sign-up-list-search>
+</div>
+
+<div *ngFor="let activity of activitiesFiltered" class="m-b-1em">
+    <h2>{{activity.name}}</h2>
+
+    <div *ngFor="let date of activity.activityDates" class="m-b-1em">
+        <h3>{{date.description()}}</h3>
+
+        <mat-selection-list [multiple]="false">
+            <mat-list-option *ngFor="let signUp of date.activitySignUps" (click)="showDetails(signUp)">
+                {{signUp.firstName}} {{signUp.lastName}}
+                <mat-divider></mat-divider>
+            </mat-list-option>
+        </mat-selection-list>
+    </div>
+</div>

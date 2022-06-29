@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { ActivitySignUp } from '../models/activities-sign-up/activity-sign-up';
 import { ActivityDate } from '../models/activities/activity-date';
 import { Lookup } from '../models/lookup';
-import { ActivitySignUpService } from '../services/activity-sign-up.service';
-import { ActivityService } from '../services/activity.service';
-import { SnackBarService } from '../services/snack-bar.service';
+import { ActivitySignUpService } from '../services/activity-sign-up/activity-sign-up.service';
+import { ActivityService } from '../services/activity/activity.service';
+import { SnackBarService } from '../services/snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-activity-sign-up',
@@ -34,7 +35,8 @@ export class ActivitySignUpComponent implements OnInit {
   constructor(
     private _activityService: ActivityService,
     private _activitySignUpService: ActivitySignUpService,
-    private _snackBarService: SnackBarService
+    private _snackBarService: SnackBarService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -72,8 +74,12 @@ export class ActivitySignUpComponent implements OnInit {
       .create(activitySignUp)
       .pipe(finalize(() => (this.saving = false)))
       .subscribe({
-        next: (v) => {
+        next: (_) => {
           this._snackBarService.open('Signed Up!', true);
+          this._router.navigate(['activity-sign-ups'], {
+            queryParams: { activityId: activitySignUp.activityId },
+            queryParamsHandling: 'merge',
+          });
         },
         error: (e) => {
           this.apiError = e.error;

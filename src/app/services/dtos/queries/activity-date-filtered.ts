@@ -1,13 +1,15 @@
 import { DateFormatter } from 'src/app/date-formatter';
-import { ActivityFrequency } from './activity-frequency';
+import { ActivityFrequency } from '../../../models/activities/activity-frequency';
+import { ActivitySignUpFiltered } from './activity-sign-up-filtered';
 
-export class ActivityDate {
+export class ActivityDateFiltered {
   private dateFormatter: DateFormatter = new DateFormatter();
 
   constructor(
     public id: number,
     public startDate: Date,
     public frequency: ActivityFrequency,
+    public activitySignUps: ActivitySignUpFiltered[],
     public endDate?: Date | null
   ) {}
 
@@ -17,9 +19,9 @@ export class ActivityDate {
     if (this.endDate) {
       const endDate = this.dateFormatter.format(this.endDate);
 
-      return `${startDate} - ${endDate}`;
+      return `From ${startDate} to ${endDate}`;
     }
 
-    return `${startDate} - ${this.frequency}`;
+    return `Starts ${startDate} - ${this.frequency}`;
   }
 }
