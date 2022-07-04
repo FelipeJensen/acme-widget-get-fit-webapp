@@ -15,9 +15,9 @@ export class ActivitySignUpService {
   constructor(private _http: HttpClient) {}
 
   getFiltered(
-    name: string,
-    activityId: number,
-    activityDateId?: number
+    name: string | undefined,
+    activityId: number | undefined,
+    activityDateId: number | undefined
   ): Observable<ActivityFiltered[]> {
     const url = new URL(`${this.baseUrl}/activity-sign-ups`);
 
@@ -33,29 +33,27 @@ export class ActivitySignUpService {
       url.searchParams.append('activityDateId', activityDateId.toString());
     }
 
-    return this._http
-      .get<ActivityFiltered[]>(url.toString())
-      .pipe(
-        map((r) =>
-          r.map(
-            (s) =>
-              <ActivityFiltered>{
-                id: s.id,
-                name: s.name,
-                activityDates: s.activityDates.map(
-                  (d) =>
-                    new ActivityDateFiltered(
-                      d.id,
-                      d.startDate,
-                      d.frequency,
-                      d.activitySignUps,
-                      d.endDate
-                    )
-                ),
-              }
-          )
+    return this._http.get<ActivityFiltered[]>(url.toString()).pipe(
+      map((r) =>
+        r.map(
+          (s) =>
+            <ActivityFiltered>{
+              id: s.id,
+              name: s.name,
+              activityDates: s.activityDates.map(
+                (d) =>
+                  new ActivityDateFiltered(
+                    d.id,
+                    d.startDate,
+                    d.frequency,
+                    d.activitySignUps,
+                    d.endDate
+                  )
+              ),
+            }
         )
-      );
+      )
+    );
   }
 
   create(activitySignUp: ActivitySignUp): Observable<number> {
