@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BackArrowService } from '../services/back-arrow/back-arrow.service';
 import { ActivityFiltered } from '../services/dtos/queries/activity-filtered';
 import { ActivitySignUpFiltered } from '../services/dtos/queries/activity-sign-up-filtered';
 import { ActivitySignUpDetailDialogComponent } from './activity-sign-up-detail-dialog/activity-sign-up-detail-dialog.component';
@@ -12,6 +11,7 @@ import { ActivitySignUpDetailDialogComponent } from './activity-sign-up-detail-d
 })
 export class ActivitySignUpListComponent implements OnInit {
   activitiesFiltered: ActivityFiltered[] = [];
+  fetched: boolean = false;
 
   constructor(private _dialog: MatDialog) {}
 
@@ -20,6 +20,7 @@ export class ActivitySignUpListComponent implements OnInit {
   receiveSearchResults(activitySignUpFiltered: ActivityFiltered[]) {
     this.activitiesFiltered.splice(0, this.activitiesFiltered.length);
     this.activitiesFiltered.push(...activitySignUpFiltered);
+    this.fetched = true;
   }
 
   showDetails(signUp: ActivitySignUpFiltered) {

@@ -3,6 +3,11 @@
     </app-activity-sign-up-list-search>
 </div>
 
+<div *ngIf="!activitiesFiltered.length && fetched">
+    <h1>Oh no!</h1>
+    <h2>No results found with your filters :(</h2>
+</div>
+
 <div *ngFor="let activity of activitiesFiltered" class="m-b-1em">
     <h2>{{activity.name}}</h2>
 
